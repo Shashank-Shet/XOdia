@@ -1,0 +1,256 @@
+{% load staticfiles %}
+<html>
+<head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Start your development with a Design System for Bootstrap 4.">
+  <meta name="author" content="Creative Tim">
+  <title>XOdia '18</title>
+  <!-- Favicon -->
+  <link href="{% static 'game/xodia2logo.png' %}" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link href="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+  <!-- Argon CSS -->
+  <link type="text/css" href="{% static 'assets/css/argon.css' %}" rel="stylesheet">
+  <!-- Docs CSS -->
+  <link type="text/css" href="{% static 'assets/css/docs.min.css' %}" rel="stylesheet">
+    <link href="https://cdnjs.com/libraries/1000hz-bootstrap-validator">
+    <style>
+    
+        .navdesign{
+        
+         background-color: rgba(0,0,0,0.7);
+         color:white;
+            
+     }
+        
+    body {
+    position: relative;
+    height: 100%;
+    margin: 0;
+    background-image: url("{% static 'game/planes2.png' %}");
+    background-color: black;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh; 
+    width:100%; 
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+
+ }
+        .reg{
+            opacity:0.9;
+            
+        }
+        .reg:hover{
+            opacity:1;
+        }
+        
+        .social{
+            font-size: 2em; 
+            color: white
+            
+        }
+        .social:hover{
+            font-size: 2.01em;
+            color:white;
+        }
+    
+        
+    
+    </style>
+    
+    
+    
+    </head>
+
+    <body>
+        
+  <nav class="navbar navbar-expand-lg navbar-dark navdesign fixed" style="font-family: 'Montserrat';">
+      <div class="container-fluid">
+          {% if au %}
+        <a  href="{% url 'game:postlogin' %}"><img src="{% static 'game/xodiawhitelogo.txt' %}"   alt="XOdia" class="img-fluid" style="height:2.5rem;" ></a>
+          {% endif %}
+          {% if not au %}
+          <a  href="{% url 'game:login' %}"><img src="{% static 'game/xodiawhitelogo.txt' %}"   alt="XOdia" class="img-fluid" style="height:2.5rem;" ></a>
+          {% endif %}
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#myNavbar" aria-controls="navbar-dark" aria-expanded="false" aria-label="Toggle navigation" style="">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="myNavbar">
+          <div class="navbar-collapse-header">
+            <div class="row">
+              <div class="col-6 collapse-brand text-dark" >
+                XOdia '18
+              </div>
+              <div class="col-6 collapse-close">
+                <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#myNavbar" aria-controls="navbar-dark" aria-expanded="false" aria-label="Toggle navigation" style="">
+                  <span></span>
+                  <span></span>
+                </button>
+              </div>
+            </div>
+          </div>
+              <ul class="nav navbar-nav ml-auto">
+    <li class="nav-item">
+            {% if not au %}
+      <a class="nav-link" href="{% url 'game:login' %}">Home</a>
+            {% endif %}
+            {% if au %}
+          <a class="nav-link" href="{% url 'game:postlogin' %}">Home</a>
+            {% endif %}
+    </li>
+        <li class="nav-item">
+              <a class="nav-link" href="{% url 'game:login' %}#section4">Contact Us</a>
+            </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'game:login' %}#section3">About Us</a>
+    </li>
+      <li class="nav-item dropdown">
+          {% if au %}
+      <a href="#" class="nav-link" data-toggle="dropdown" role="button">
+              <span class="nav-link-inner--text">Hi, {{username}}!</span>
+            </a>
+            <div class="dropdown-menu">
+              <a href="{% url 'game:submit' %}" class="dropdown-item">Submit Bot</a>
+              <a href="{% url 'game:logout' %}" class="dropdown-item">Sign Out</a>
+            </div>
+          {% endif %}
+          {% if not au %}
+          <a id="lg1" class="nav-link" href="{% url 'game:login' %}#section2">Login</a>
+          {% endif %}
+    </li>
+
+  </ul>
+
+
+
+
+
+        </div>
+      </div>
+    </nav>
+     
+        
+        
+        
+        
+    <div  class="container-fluid " style="padding-top:70px;background-color: rgba(0,0,0,0);min-height: 100vh;">
+        
+    <div id="section3" class="container d-flex justify-content-center flex-column" style="padding-top:20px;">
+        <div  class="row mt-5" style="font-size: 3rem;color:white;">
+            <div class="col d-flex align-items-center flex-column">
+                Leaderboard
+            </div>
+        </div>
+     
+        <div class="row mt-2 mb-5" style="color: white;" >
+            <div class="col d-flex align-items-center flex-column ">
+                <div class="table-responsive" >          
+                <table class="table table-hover table-dark" style="background-color: rgba(10,10,10,0.8);">
+                    <thead >
+                    <tr>
+                    <th>#</th>
+                    <th>USERNAME</th>
+                    <th>MATCHES WON</th>
+                    <th>MATCHES LOST</th>
+                    <th>MATCHES DRAWN</th>
+                    <th>POINTS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for p in pro %}
+                    {% if not p.user_obj.is_superuser %}
+                      <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{p.user_obj.username}}</td>
+                    <td>{{p.gwon}}</td>
+                    <td>{{p.glost}}</td>
+                    <td>{{p.gdrawn}}</td>
+                    <td>{{p.points}}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                                          
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+        
+        
+    
+    
+        </div>
+    
+   <footer class="page-footer heading container-fluid " style="background-color: black; opacity: 0.9;">
+  <div class="row d-flex justify-content-center">
+      
+      <div class="col-sm-4 d-flex align-items-center justify-content-start">
+           <img class="img-fluid ml-3" src="ieee.png" alt="" style="height: 6vh;">
+       </div>
+      <div class="col-sm-4 mt-4 align-items-center">
+          
+       <div class="d-flex justify-content-center">
+                <div class="mx-3">                           
+                <a class="social" href="#" style="">
+                  <i class="fa fa-facebook-square"></i>
+                </a>
+            </div>
+            
+            <div class="mx-3"> 
+                
+                <a class="social" href="https://www.instagram.com" style="">
+                  <i class="fa fa-instagram"></i>  
+                </a>
+            </div>
+            <div class="mx-3"> 
+                <a class="social" href="#" style="">
+                    
+                  <i class="fa fa-twitter"></i>
+                </a>
+            </div>
+        </div>
+          <div class="row d-flex justify-content-center"> 
+                <p class="" style=" color: white; font-size:0.9rem;">Developed by, PISB XOdia '18 Team</p>
+        </div>
+            
+          </div>
+    
+    <div class="col-sm-4 d-flex align-items-center justify-content-end">
+      <img class="img-fluid mr-3" src="pisb.png" alt="" style="height:6vh;">
+  </div>  
+  </div>
+    
+    
+       
+       
+ 
+</footer> 
+    
+        <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/popper/popper.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/headroom/headroom.min.js' %}"></script>
+  <!-- Optional JS -->
+  <script src="{% static 'assets/vendor/onscreen/onscreen.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/nouislider/js/nouislider.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+  <!-- Argon JS -->
+  <script src="{% static 'assets/js/argon.js?v=1.0.0' %}"></script>
+        
+        
+    </body>
+
+</html>

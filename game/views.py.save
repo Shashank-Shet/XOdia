@@ -1,0 +1,122 @@
+
+from django.shortcuts import render, redirect
+from django.views import View
+from django.contrib.auth import login, authenticate, logout
+from .models import Profile
+from django.db import IntegrityError
+import urllib
+import urllib2
+import json
+from django.conf import settings
+
+
+secret_key = <div class="g-recaptcha" data-sitekey="6LcPOXAUAAAAANuHqItDnGRv-9L2QPdyD-CmhTyp"></div>
+
+# Create your views here.
+class SignupView(View):
+    template_name = 'game/signUp.html'
+
+    def get(self, request):
+        return render(request, self.template_name, {})
+
+    def post(self, request):
+        data_set = request.POST
+        username = data_set["username"]
+        email = data_set["email"]
+        first_name = data_set["name"]
+        phone = data_set["phone"]
+        password = data_set["password"]
+        college = data_set["college"]
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        url = 'https://www.google.com/recaptcha/api/siteverify'
+        values = {
+            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        data = urllib.urlencode(values)
+        req = urllib2.Request(url, data)
+        response = urllib2.urlopen(req)
+        result = json.load(response)
+        if result['success']:
+            myuse_obj = Profile()
+
+            try:
+                myuse_obj.create(username=username, email=email, password=password, first_name=first_name, phone=phone,
+                                 college=college)
+                myuse_obj.create_myuser()
+                myuse_obj.save()
+            except IntegrityError:
+                return render(request, self.template_name,
+                              {'err_msg': "Username is already taken!", 'first_name': first_name, 'email': email,
+                               'phone': phone, 'college': college})
+            user = authenticate(username=username, password=password)
+            print(user)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect('game:postlogin')
+            return redirect('game:signup')
+        else:
+            return render(request, self.template_name,
+                          {'err_msg2': 'Invalid Captcha', 'first_name': first_name,
+                           'email': email, 'username': username, 'phone': phone, 'college': college})
+
+
+class GridView(View):
+    template_name = "game/playable_ui.html"
+
+    def get(self, request):
+        return render(request, self.template_name, {})
+
+"""
+class LeaderBoard(View):
+    template_name = 'game/leader.html'
+
+    def get(self, request):
+        pro = Profile.objects.all()
+        return render(request, self.template_name, {'pro': pro})
+"""
+
+def logoff(request):
+    if request.user.is_authenticated:
+        logout(request)
+    return redirect('game:login')
+
+
+class LogIn(View):
+    template_name = 'game/prelogin.html'
+
+    def get(self, request):
+        return render(request, self.template_name, {})
+
+    def post(self, request):
+        data_set = request.POST
+        username = data_set["username"]
+        password = data_set["password"]
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('game:postlogin')
+        else:
+            return render(request, self.template_name, {'err_ms': "Invalid Username or Password!"})
+
+
+class PostLogin(View):
+    template_name = 'game/postlogin.html'
+
+    def get(self, request):
+        if request.user.is_authenticated:
+            return render(request, self.template_name,
+                          {'username': request.user.username, 'name': request.user.first_name,
+                           'email': request.user.email}, )
+        else:
+            return redirect('game:login')
+
+
+class PlayableUI(View):
+    template_name = 'game/playable_ui.html'
+
+    def get(self, request):
+        return render(request, self.template_name, {})

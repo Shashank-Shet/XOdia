@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="XOdia'18">
+  <meta name="author" content="PISB XOdia'18 team">
+  <title>XOdia '18</title>
+  <!-- Favicon -->
+  <link href="{% static 'game/xodialogo2.png' %}" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link href ="{% static 'assets/vendor/nucleo/css/nucleo.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+  <!-- Argon CSS -->
+  <link type="text/css" href="{% static 'assets/css/argon.css' %}" rel="stylesheet">
+  <!-- Docs CSS -->
+  <link type="text/css" href="{% static 'assets/css/argon.min.css' %}" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <style>
+    
+   .nav-item > .nav-link{
+            font-size: 1.1rem;
+        }
+        .navdesign{
+        
+        background-color: rgba(0,0,0,0.5);
+           
+    }
+    
+    .kriegimg{
+    width:45vw;
+             margin-top:24vh;
+    }
+        
+        .playbtn{
+            width:35%;
+            min-height:17%;
+            cursor: pointer;
+            font-size:2rem;
+            border-radius: 15px;
+            border:solid 0px;
+            color:white;
+            background-color: rgba(0,0,0,0.6);
+            /*padding-top:0.5rem;*/
+            
+        }
+        
+        
+     .sec1{
+     padding-bottom:80px;
+     
+     }
+    
+    @media only screen and (max-width: 576px){
+    
+    .kriegimg{
+    	width:100%;
+        margin-top:5vh;
+    }
+    	.playbtn{
+            width:55%;
+            min-height:15%;
+            cursor: pointer;
+            font-size:1.5rem;
+            border-radius: 10px;
+            border:solid 0px;
+            color:white;
+            background-color: rgba(0,0,0,0.6);
+            
+        }
+        
+       .sec1{
+     padding-bottom:0px;
+     
+     }
+        
+        
+    }
+    
+        @media only screen and (min-width: 576px) and (max-width: 768px){
+    
+    .kriegimg{
+    	width:100%;
+        margin-top:5vh;
+    }
+    	.playbtn{
+            width:55%;
+            min-height:20%;
+            cursor: pointer;
+            font-size:1.5rem;
+            border-radius: 10px;
+            border:solid 0px;
+            color:white;
+            background-color: rgba(0,0,0,0.6);
+           
+            
+        }
+        
+       .sec1{
+     padding-bottom:0px;
+     
+     }
+        
+        
+    }
+    
+             
+   body {
+   
+   
+   margin: 0;
+   background-image: url("{% static 'game/planes2.png' %}");
+  
+  
+   background-attachment: fixed;
+   height: 100vh; 
+   width:100%;
+   background-position: top;
+   background-repeat: no-repeat;
+   background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+
+}
+ 
+ 
+ 
+ .reg{
+            background: rgba(0,0,0,0.9);
+            
+        }
+        .reg:hover{
+            background: rgba(0,0,0,0.9);
+        }
+        
+        .social{
+            font-size: 2em; 
+            color: white
+            
+        }
+        .social:hover{
+            color:dimgray;
+        }
+      .contact{
+            font-size: 1.5em;
+            color:white;
+            background-color: rgba(0,0,0,0.6);
+            border-radius: 25px;
+        }
+        
+        .contact:hover{
+            background-color: rgba(255,255,255,0.9);
+            color:black;
+            border-radius: 25px;
+        }
+        
+        .argontext{
+            color:grey;
+        }
+        .argontext:hover{
+            color:white;
+        }
+        
+        .form-control{
+            background: #000;
+            transition: all 0.3s ease;
+            color:white;
+        }
+        
+        .form-control:focus{
+            border-bottom: 3px solid rgb(255, 140, 0);
+            background: #000;
+            color:white;
+        }
+        
+        .form-control::placeholder{
+            color: #fff;
+            transition: all 0.4s ease;
+        }
+        
+        .form-control:focus::placeholder{
+            transform: translateX(-5px, -15px);
+            font-size: 10px;
+        }
+    
+    </style>
+    
+    
+    
+</head>
+
+<body>
+    
+    
+     <nav class="navbar navbar-expand-lg navbar-dark navdesign fixed-top" style="font-family: 'Montserrat';">
+        <div class="container-fluid">
+          <a  href="#section1"><img src="{% static 'game/xodiawhitelogo.txt' %}"   alt="XOdia" class="img-fluid" style="height:2.5rem;" ></a>
+          <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#myNavbar" aria-controls="navbar-dark" aria-expanded="false" aria-label="Toggle navigation" style="">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-collapse collapse" id="myNavbar">
+            <div class="navbar-collapse-header">
+              <div class="row">
+                <div class="col-6 collapse-brand text-dark" >
+                  XOdia '18
+                </div>
+                <div class="col-6 collapse-close">
+                  <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#myNavbar" aria-controls="navbar-dark" aria-expanded="false" aria-label="Toggle navigation" style="">
+                    <span></span>
+                    <span></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+               <ul class="nav navbar-nav ml-auto" >
+                  <li class="nav-item">
+                      
+                    <a class="nav-link " href="#" data-toggle="modal" data-target="#modal-doc" >How to Play?</a>
+                  </li>
+                  <li class="nav-item">
+                      
+                    <a class="nav-link" href="{% url 'game:ui' %}">Let's Play Krieg!</a>
+                  </li>
+                  
+                  <li class="nav-item">
+                    <a class="nav-link" href="#section3">About Krieg</a>
+                  </li>
+                  <li class="nav-item">
+                        <a class="nav-link" href="{% url 'game:leader' %}">Leaderboard</a>
+                      </li>
+                  
+                  <li class="nav-item">
+                    <a id="lg1" class="nav-link" href="#section2">Login</a>
+                  </li>    
+                  
+                  <li class="nav-item">
+                    <a class="nav-link" href="#section4">Contact Us</a>
+                  </li>   
+
+                </ul>
+              
+              
+          </div>
+        </div>
+      </nav>
+    
+  
+   <div class="container" style="font-family:'Montserrat';">
+
+
+            <div class="modal fade" id="modal-doc" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                <div class="modal-dialog modal- modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content m-2">
+                        <div class="modal-body p-0">
+                            <div class>
+                                <div class="card-body px-lg-3 py-lg-4">
+                                    <div class="row">
+                                    <div class="col-sm-9  ">
+                                    <h1 class="display-4">How to Play?</h1>
+
+                                    </div>
+                                        <div class="col-sm-3 d-flex justify-content-end" >
+                                            <button class="" data-toggle="modal" data-target="#modal-doc" style="background-color: rgba(0,0,0,0);border:0px; transform: translateY(-15px);"><i class="fa fa-times"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="card mb-3">
+                                     <div class=" col-lg-12">
+                                        <div style="padding: 10px; margin: 10px;" class="container">
+                            <p class="large" style="border-radius: 15px;"><span class="" style="padding: 10px; "><h5><b>Rules</b></h5></span> </p>
+                            <ul class="ul"><li style="font-size: 15px;">The Code for the bots must be strictly written in C/C++/Python.</li>
+                                <li style="font-size: 15px;">The bots will be disqualified due to any errors in the code or invalid moves.</li>
+                                <li style="font-size: 15px;">Bots will also be disqualified if they fail to respond in the specified time limit.</li>
+                                                <li style="font-size: 15px;">Malicious activity or excessive resource consumption will also result in disqualification.</li>
+                                                <li style="font-size: 15px;">Please refer to the documentation for the detailed set of rules.</li>
+                              </ul>
+                         </div>
+                                        </div>
+
+
+                                    </div>
+                                <div class="card">
+
+                                        <div class="col-lg-12">
+                         <div style="padding: 10px; margin: 10px;" class="container">
+                            <p class="large" style="border-radius: 15px;"><span class="large th-large heading" style="padding: 10px;"><h5><b>Documentation</b></h5></span> </p>
+                            <ul class="ul">
+                                    <li style="font-size: 15px;">The problem statement for Krieg is provided below along with a detailed documentation to understand the game rules.</li>
+                                                    <li style="font-size: 15px;">Templates in C/C++/Python are put up to illustrate the basic structure of the code, in order to get started</li>
+                                    <li style="font-size: 15px;">May the best algorithm win!</li>
+                                    </ul><br><br>
+                             <div class="row d-flex justify-content-between">
+                            <div class="col-sm-8" >
+                                <div class="dropdown mb-3">
+                                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                   Template
+                                  </button>
+                                  <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{% static 'game/ctemplate.c' %}" download="ctemplate.c">C</a>
+                                    <a class="dropdown-item" href="{% static 'game/cpptemplate.cpp' %}" download="cpptemplate.cpp">C++</a>
+                                    <a class="dropdown-item" href="{% static 'game/python_template.py' %}"download="python_template.py">Python</a>
+                                  </div>
+                                </div>
+                                                </div>
+
+                             <div class="col-sm-4">
+                                        
+                                        
+                                        <a class="btn btn-icon btn-3 btn-primary"  style="color:white" href="{% static 'game/doc.pdf' %}" download="doc.pdf">
+                                            <span class="btn-inner--icon"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></span>
+                                            <span class="btn-inner--text">Download PDF</span>
+                                            </a>
+                                
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                                    <!--<button class="btn btn-icon btn-3 btn-primary" type="button">
+                                        <span class="btn-inner--icon"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></span>
+                                        <span class="btn-inner--text">Download as pdf</span>
+                                    </button>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+
+    
+    
+<div class="container" >
+    
+    
+	<div id="section1" class="d-flex align-items-center justify-content-center flex-column sec1" style="height: 100vh;margin-top: 5px;">
+	    
+	       <img src="{% static 'game/KRIEGlogo2.png' %}"   alt="KRIEG" class="img-fluid kriegimg mb-5" >  
+	    
+	    
+	      <!--img src=""   alt="play" class="img-fluid" style="height:33vh;cursor: pointer" -->  
+	       <!--button style="width:30vw;height:20vh;font-size:2rem;border-radius:60px;border:solid 1px #fff;background-color:rgba(0,0,0,0.2);color:white;">Play Krieg</button-->
+	       <a class="btn btn-icon btn-3 btn-outline-warning playbtn d-flex align-items-center justify-content-center" href="{%url 'game:ui' %}" style="color:white;">
+	       
+	       
+		    <span class="btn-inner--text m-0 ">Play</span>
+		    <span class="btn-inner--icon m-0 "><i class="fa fa-fighter-jet"></i></span>
+		    
+
+		
+               </a>
+	      
+	
+
+	</div>
+	<hr style="border-width: 10px;background-color: white;">
+	
+	<div id="section3" class="d-flex align-items-center justify-content-center flex-column" style="min-height: 100vh;padding-top: 70px;">
+	    <div class="mb-5">
+	    <b style="font-size:2.5rem;color:white;">About Krieg</b> 
+	    </div>
+
+	    <div class="row" style="color: white; ">
+	    <div class="col-sm-8 d-flex flex-column " style="font-size: 1.2rem;">
+	Your country nurtured you. You are now required to come forth and defend your birthplace.<br>
+
+	    An enemy is trying to destroy the peaceful streets where you grew up, trying to invade the skies under which you slept. Now it’s up to your squadron to annihilate them. Reach one of your enemy bases before they reach yours.
+	    Save your streets, save your skies, save your realm.<br><br><br>
+		
+
+	    <b>This is war.</b><br><br>
+
+	    <b>THIS IS KRIEG.</b>
+	    </div>
+	    <div class="col-sm-4 d-flex align-items-center flex-column mb-5">
+		<img src="{% static 'game/xodialogo.png' %}"   alt="logo" class="img-fluid" style="height:30vh;" >
+		
+		
+
+		
+	    </div>
+	</div>
+	</div>
+	
+	<hr style="border-width: 10px;background-color: white;">
+
+    
+    
+	<div id="section2" class="d-flex align-items-center justify-content-center" style="min-height: 100vh;padding-top: 70px;padding-bottom: 70px">
+	<div class="card-body">
+	    <div class="tab-content" id="myTabContent" >
+		<div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+		    <div class="row justify-content-center">
+	    <div class="col-lg-6">
+		<div class="card shadow border-0 reg" style="background: rgba(0,0,0,0.6);">
+
+		<div class="card-body px-lg-5 py-lg-5" >
+		    <div class="text-center text-muted mb-4">
+		    <h3 class="text-white">Sign In</h3>
+		    </div>
+                    <form role="form" method="post">
+                        {% csrf_token %}
+                        {%if err_ms %}
+	                    	    <h5><font color="red">{{err_ms}}</font></h5>
+	                    	    <script>
+	                    	    	document.getElementById("lg1").click();
+	                    	    </script>
+                        {% endif %}
+                      <div class="form-group mb-3">
+                        <div class="input-group input-group-alternative">
+                          
+                         <input class="form-control" placeholder="Username" name="username" type="text" required>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                          
+                          <input class="form-control" placeholder="Password" name="password" type="password" style="color: white;" required>
+                        </div>
+                      </div>
+                      
+                      <div class="text-center">
+                        <a href=""><button  type="button submit" class="btn btn-primary my-4">Sign in</button></a>
+                      </div>
+                    </form>
+                    <div class="row mt-3">
+                  
+                  <div class="col-12 text-center">
+
+                      <a   class="text-light " style="cursor:pointer;" href="{% url 'game:signup' %}" >
+                      <big class="argontext">Create new account</big>
+
+                      </a>
+
+
+                  </div>
+                </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    <hr style="border-width: 10px;background-color: white;">
+    
+    
+	<div id="section4" style="padding-top:70px;padding-bottom: 50px;margin-bottom: 10vh">
+		<div  class="row mb-5" style="font-size: 2.5rem;color:white;">
+		    <div class="col d-flex align-items-center flex-column">
+		    <b>Contact Us</b>
+		    </div>
+		</div>
+
+		<div class="row " style="color: white">
+		    
+		    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" id="contactus">
+				    <div class="container contact mb-3" style="padding: 15px; ">
+					<center style="transform: translate(-5px)">
+					    <strong style="font-size: 20px;">Shubham Sundrani</strong>
+					    <p style="font-size: 15px;">+91 9623888503</p>
+					</center>
+				    </div>
+		    </div>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" id="contactus">
+
+			<div class="container contact mb-3" style="padding: 15px;">
+					<center style="transform: translate(-1px)">
+					    <strong style="font-size: 20px;">Vedang Mandhana</strong>
+					    <p style="font-size: 15px;">+91 9561688777</p>
+					</center>
+				    </div>
+				    
+		    
+		</div>
+		    
+
+		</div>
+
+		<div  class="row mt-5" style="font-size: 2rem;color:white;">
+		    <div class="col d-flex align-items-center flex-column">
+		    <a href="mailto:xodia@credenz.info" style="color:white"><h5 style="color:white">xodia.credenz18@gmail.com</h5></a>
+		    </div>
+		</div>
+
+
+	</div>
+    
+    
+
+</div>
+      
+<footer class="page-footer heading container-fluid  " style="background-color: black; background-color: rgba(0,0,0,0.9);">
+            <div class="row d-flex justify-content-between align-items-center p-2"style="min-height:12vh;" >
+                
+                
+                     <img class="img-fluid ml-lg-5 mr-sm-3" src="{% static 'game/ieee.png' %}" alt="" style="height: 3rem;opacity:0.85">
+                 
+                <div class="d-flex align-items-center  flex-column mx-auto">
+                    
+                 <div class="d-flex justify-content-around" style="width:50%;">
+                          <div>                           
+                          <a class="social" href="https://www.facebook.com/xodiagaming/">
+                            <i class="fa fa-facebook-square"></i>
+                          </a>
+                      </div>
+                      
+                      <div > 
+                          
+                          <a class="social" href="https://www.instagram.com/pisbxodia/">
+                            <i class="fa fa-instagram"></i>  
+                          </a>
+                      </div>
+                      <div > 
+                          <a class="social" href="https://twitter.com/pisbXOdia" >
+                              
+                            <i class="fa fa-twitter" ></i>
+                          </a>
+                      </div>
+                  </div>
+                    <div class="d-flex justify-content-center " > 
+                          <p class="" style=" color: white; font-size:0.95rem;">Developed by PISB XOdia '18 Team</p>
+                  </div>
+                      
+                    </div>
+              
+                    <div class=" d-flex ml-lg-0  ml-auto ">
+                            <img class="img-fluid mr-lg-5" src="{% static 'game/pisb.png' %}" alt="" style="height:3rem;opacity:0.85">
+                    </div>
+               
+            
+            </div>
+              
+              
+                 
+                 
+           
+          </footer> 
+
+    
+    
+
+    
+  <!-- Core -->
+  <script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/popper/popper.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/headroom/headroom.min.js' %}"></script>
+  <!-- Optional JS -->
+  <script src="{% static 'assets/vendor/onscreen/onscreen.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/nouislider/js/nouislider.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js' %}"></script>
+  <!-- Argon JS -->
+  <script src="{% static 'assets/js/argon.js' %}"></script>
+    
+    <script>
+$(document).ready(function(){
+    $('body').scrollspy({target: ".navbar", offset: 50});   
+    
+    $("#myNavbar a").on('click', function(event) {
+    
+    if (this.hash !== "") {
+      event.preventDefault();
+      var hash = this.hash;
+     
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+   
+        
+        window.location.hash = hash;
+      });
+    }  
+  });
+    
+    $("#navName").on('click', function(event) {
+    if (this.hash !== "") {
+      event.preventDefault();
+      var hash = this.hash;
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+        window.location.hash = hash;
+      });
+    }  // End if
+  });
+    
+});
+    
+    
+    
+    
+    
+</script>
+    
+   
+    
+    
+</body>
+
+</html>
