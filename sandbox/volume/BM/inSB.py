@@ -4,11 +4,15 @@
 #	1) Passes the arguments to BM
 #	2) Detects errors and stores them in a log file - to be printed out for the user, if needed
 #	3) Errors must be parsed and only the implied meaning must be shown to the user - *** A much more robust system is needed, than the current version ***
-#	e.g - 'error while loading shared libraries: libc.so.6: failed to map segment from shared object' means that the user has allocated more memory than is allowed
-#	must show the message "Memory Limit exceeded"
+#	e.g -
+#    'error while loading shared libraries: libc.so.6:
+#    failed to map segment from shared object'
+#    means that the user has allocated more memory than is allowed
+#	 must show the message "Memory Limit exceeded"
 
-#	Note: Here we can print to stdout, since the stdout and stderr of inSB.py are stored in sandbox_match_log
-
+# stdout and stderr of this script are piped to sandbox_match_log
+# printing allowed
+from subprocess import PIPE, Popen
 import subprocess
 import sys
 
@@ -18,14 +22,8 @@ logfile_name = sys.argv[3]
 flip = sys.argv[4]
 
 
-print ext1,"KKKKKKKKKKKKKKKK"
-#print(ext1,ext2,logfile_name)
-
-a = subprocess.Popen(['python2', 'BM.py', ext1, ext2, logfile_name, flip], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-
-#Alternative -
-#a = subprocess.Popen(['./inSBscript', arg1, arg2, id1, id2, player_string], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE)
-
+a = Popen(['python2', 'BM.py', ext1, ext2, logfile_name, flip],
+		stdout=PIPE, stdin=PIPE, stderr=PIPE)
 
 # use docker inspect to check whether the correct arguments are being passed
 # The output in the terminal of the container is not displayed with a.communicate() in outSB.py, so use docker logs [container] to see its std. output - for debugging purposes. Or create another log file
@@ -46,17 +44,27 @@ a = subprocess.Popen(['python2', 'BM.py', ext1, ext2, logfile_name, flip], stdou
 executable_name = ['player1', 'player2']
 
 error_list = [
-				['Processes limit exceeded', 'fork', 'Resource temporarily unavailable','fork: retry: No child processes'],
-				['Too many open file descriptors', 'stdbuf: error while loading shared libraries: libc.so.6: cannot open shared object file'],
-				['memory limit exceeded ', 'error while loading shared libraries: libc.so.6: failed to map segment from shared object', 'out of memory', 'error while loading shared libraries : libgcc_s.so.1: failed to map segment from shared object', 'cannot allocate TLS data structures for initial thread']
-			 ]
+	[
+		'Processes limit exceeded',
+		'fork',
+		'Resource temporarily unavailable',
+		'fork: retry: No child processes'
+	],
+	[
+		'Too many open file descriptors',
+		'stdbuf: error while loading shared libraries: libc.so.6: cannot open shared object file'
+	],
+	[
+		'memory limit exceeded ',
+		'error while loading shared libraries: libc.so.6: failed to map segment from shared object',
+		'out of memory', 'error while loading shared libraries : libgcc_s.so.1: failed to map segment from shared object',
+		'cannot allocate TLS data structures for initial thread'
+	]
+]
 
-dirname = '../matches/'			#directory containing current match log files
-errorfile = dirname+'error'+logfile_name
+dirname = '../matches/'
+errorfile = dirname + 'error' + logfile_name
 inSBlog = "inSBlog"
-#STDerrorfile= dirname+'STDerror'+id1+','+id2+player_string
-
-#[out, err] = a.communicate()	#is it required?
 
 inlog  = open(inSBlog, 'w')						#copies stderr into inSBlog
 #inlog.write("\n\nMatch: "+logfile_name+"\n")
