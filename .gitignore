@@ -1,3 +1,4 @@
 sandbox/volume/BM/temp
 *.pyc
 *~
+stdbot.cpp
