@@ -10,3 +10,4 @@ resource_limits = {
     "py" : ("--nofile=5", "--nproc=500", "--as=32740")
 }
 
+MAX_BUFFER_LENGTH = 100
