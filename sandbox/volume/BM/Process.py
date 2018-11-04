@@ -1,6 +1,6 @@
 from subprocess import Popen, PIPE, call
 from select import poll, POLLIN
-from BMLimits import time_limits, resource_limits
+from BMLimits import time_limits, resource_limits, MAX_BUFFER_LENGTH
 import signal
 
 def handler(signum, frame):
@@ -38,7 +38,7 @@ class Process:
         event_list = self.poll_obj.poll(self.time_limit)
         if event_list and event_list[0][1] is POLLIN:
             alarm(1)
-            op = self.popen_obj.stdout.readline()
+            op = self.popen_obj.stdout.readline(MAX_BUFFER_LENGTH)
             alarm(0)
             return op.rstrip('\n')
         return None
