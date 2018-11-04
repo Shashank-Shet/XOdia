@@ -47,5 +47,3 @@ class Process:
         if self.popen_obj.poll() is None:
             return True
         return False
-
-    
