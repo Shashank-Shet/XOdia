@@ -1,6 +1,7 @@
 #We are using 1 and 0 to denote players. 1->makes 1st move.
 def parser_func(data, popen_val_obj):
 
+    data = data.rstrip('\n') + '\n'
     popen_val_obj.stdin.write(data)
     bucket = popen_val_obj.stdout.readline()
     if bucket == "VALID\n":
