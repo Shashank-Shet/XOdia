@@ -1,14 +1,13 @@
-
-#    -------------------------------------------  Overview of inSB.py  -------------------------------------------------
+#	-------------------------------------------  Overview of inSB.py  -------------------------------------------------
 #
-#    1) Passes the arguments to BM
-#    2) Detects errors and stores them in a log file - to be printed out for the user, if needed
-#    3) Errors must be parsed and only the implied meaning must be shown to the user - *** A much more robust system is needed, than the current version ***
-#    e.g -
+#	1) Passes the arguments to BM
+#	2) Detects errors and stores them in a log file - to be printed out for the user, if needed
+#	3) Errors must be parsed and only the implied meaning must be shown to the user - *** A much more robust system is needed, than the current version ***
+#	e.g -
 #    'error while loading shared libraries: libc.so.6:
 #    failed to map segment from shared object'
 #    means that the user has allocated more memory than is allowed
-#     must show the message "Memory Limit exceeded"
+#	 must show the message "Memory Limit exceeded"
 
 # stdout and stderr of this script are piped to sandbox_match_log
 # printing allowed
@@ -18,8 +17,9 @@ import sys
 
 ext1, ext2, logfile_name, flip = sys.argv[1:]
 
-a = Popen(['python3', 'BM.py', ext1, ext2, logfile_name, flip],
-        stdout=PIPE, stdin=PIPE, stderr=PIPE)
+
+a = Popen(['python2', 'BM.py', ext1, ext2, logfile_name, flip],
+		stdout=PIPE, stdin=PIPE, stderr=PIPE)
 
 # use docker inspect to check whether the correct arguments are being passed
 # The output in the terminal of the container is not displayed with a.communicate() in outSB.py, so use docker logs [container] to see its std. output - for debugging purposes. Or create another log file
@@ -41,20 +41,20 @@ executable_name = ['player1', 'player2']
 
 error_list = [
     [
-    'Processes limit exceeded',
-    'fork',
-    'Resource temporarily unavailable',
-    'fork: retry: No child processes'
+        'Processes limit exceeded',
+        'fork',
+        'Resource temporarily unavailable',
+        'fork: retry: No child processes'
     ],
     [
-    'Too many open file descriptors',
-    'stdbuf: error while loading shared libraries: libc.so.6: cannot open shared object file'
+        'Too many open file descriptors',
+        'stdbuf: error while loading shared libraries: libc.so.6: cannot open shared object file'
     ],
     [
-    'memory limit exceeded ',
-    'error while loading shared libraries: libc.so.6: failed to map segment from shared object',
-    'out of memory', 'error while loading shared libraries : libgcc_s.so.1: failed to map segment from shared object',
-    'cannot allocate TLS data structures for initial thread'
+        'memory limit exceeded ',
+        'error while loading shared libraries: libc.so.6: failed to map segment from shared object',
+        'out of memory', 'error while loading shared libraries : libgcc_s.so.1: failed to map segment from shared object',
+        'cannot allocate TLS data structures for initial thread'
     ]
 ]
 
@@ -62,14 +62,14 @@ dirname = '../matches/'
 errorfile = dirname + 'error' + logfile_name
 inSBlog = "inSBlog"
 
-inlog  = open(inSBlog, 'w')            #copies stderr into inSBlog
+inlog  = open(inSBlog, 'w')						#copies stderr into inSBlog
 #inlog.write("\n\nMatch: "+logfile_name+"\n")
 
 """
 inlog.close()
 inlog  = open(inSBlog, 'r')"""
 
-errlog = open(errorfile, 'w')            #copies known errors into error
+errlog = open(errorfile, 'w')					#copies known errors into error
 error_flag = 0
 def stringCheck(error_flag):
     while True:
@@ -78,24 +78,24 @@ def stringCheck(error_flag):
         if line == '':
             break
 
-    inlog.write(line)
-    line = line.rstrip()
+        inlog.write(line)
+        line = line.rstrip()
 
-    print '1line is -', line
-    player_flag = 100    #stores which player (1 or 2) caused the error, 100 if cannot be determined
-    for k in range(0,len(executable_name)):
-        if(executable_name[k] in line):
-        player_flag=k
-    for i in range(len(error_list)):        #going through each error(list) in error_list
-        for j in range(1,len(error_list[i])):
+        print('1line is -', line)
+        player_flag = 100		#stores which player (1 or 2) caused the error, 100 if cannot be determined
+        for k in range(0,len(executable_name)):
+            if(executable_name[k] in line):
+                player_flag=k
+        for i in range(len(error_list)):			#going through each error(list) in error_list
+            for j in range(1,len(error_list[i])):
 
-        while ((error_list[i][j] in line)):
-            if player_flag==100:
-            errlog.write(error_list[i][0]+'\n')
-            else:
-            errlog.write(error_list[i][0] + " by player"+str(player_flag+1)+'\n')
-            error_flag += 1
-            return
+                while ((error_list[i][j] in line)):
+                    if player_flag==100:
+                        errlog.write(error_list[i][0]+'\n')
+                    else:
+                        errlog.write(error_list[i][0] + " by player"+str(player_flag+1)+'\n')
+                    error_flag += 1
+                    return
 
 strcheck=stringCheck(error_flag)
 errlog.close()
@@ -113,22 +113,12 @@ inlog = open(inSBlog, "r")
 for line in inlog:
     print(line)
 inlog.close()
-print 'inSBend\n'
-print a.poll()
+print('inSBend\n')
+print(a.poll())
 if a.returncode == 255:
     print("P")
     errlog = open(errorfile, 'w')
     errlog.write("Match aborted")
     errlog.close()
-sys.exit(a.returncode)    #passes the winner of the match to outSB
+sys.exit(a.returncode)	#passes the winner of the match to outSB
 
-
-
-
-
-
-# modification1 - Test for segmentation faults, multiline and multiple errors - mostly only one error occurs for each bot ###
-# addition2 - create bots1,2 directory, if not present
-
-
-# the -d in 'docker run' is important, does't work without it - correction - it works without -itd, -d makes process syncronization difficult
