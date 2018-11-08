@@ -16,13 +16,9 @@ from subprocess import PIPE, Popen
 import subprocess
 import sys
 
-ext1 = sys.argv[1]
-ext2 = sys.argv[2]
-logfile_name = sys.argv[3]
-flip = sys.argv[4]
+ext1, ext2, logfile_name, flip = sys.argv[1:]
 
-
-a = Popen(['python2', 'BM.py', ext1, ext2, logfile_name, flip],
+a = Popen(['python3', 'BM.py', ext1, ext2, logfile_name, flip],
         stdout=PIPE, stdin=PIPE, stderr=PIPE)
 
 # use docker inspect to check whether the correct arguments are being passed
@@ -77,10 +73,10 @@ errlog = open(errorfile, 'w')            #copies known errors into error
 error_flag = 0
 def stringCheck(error_flag):
     while True:
-    line = a.stderr.readline()
-    inlog.write(line)
-    if line == '':
-        break
+        line = a.stderr.readline()
+        inlog.write(line)
+        if line == '':
+            break
 
     inlog.write(line)
     line = line.rstrip()
