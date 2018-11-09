@@ -10,11 +10,11 @@
   
   An example of the third parameter is: 14v31, which results in a log file named `log14v31` as well as an error file named `error14v31`.
   
-<h2> Process.py </h2>
+<h2> process.py </h2>
   Bot management makes extensive use of Popen objects, signal handling, and piping data to and from processes. This file defines a process class which abstracts away all lower level code, so as to ensure concise logic in the BM.py file.
   
 <h2> BMLimits.py </h2>
   Stores user defined time limits, process limits and buffer limits for use in other files.
   
-<h2> Validate.py </h2>
+<h2> validate.py </h2>
   This file houses the code necessary to interface between BM.py and the validation.
