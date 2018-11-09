@@ -36,6 +36,8 @@ try:
         if player[i%2].is_alive():
             actual_op = player[i%2].read_output()
             if actual_op is not None:
+                player[i%2].suspend()
+                player[(i+1)%2].resume()
                 flipped_op = validate(actual_op)
                 player[(i+1)%2].pass_input(flipped_op)
                 if i%2 == 0:

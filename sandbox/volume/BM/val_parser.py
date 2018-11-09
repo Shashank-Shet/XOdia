@@ -1,4 +1,6 @@
-#We are using 1 and 0 to denote players. 1->makes 1st move.
+# player1 is represented by 1
+# player2 is represented by 2
+
 def parser_func(data, popen_val_obj):
 
     data = data.rstrip('\n') + '\n'
@@ -21,6 +23,7 @@ def parser_func(data, popen_val_obj):
         raise ValueError(bucket)
 
 class EndGameError(Exception):
+
     def __init__(self, string, winner):
         super(EndGameError, self).__init__(string)
         self.winner = 100 + ((2 - winner) % 3)
