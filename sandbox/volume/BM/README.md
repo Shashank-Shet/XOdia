@@ -24,15 +24,15 @@
 <h2> Constants </h2>
 A list of constants influence the behaviour of the BM.
 
-  * P1 - Located in validate.py, it defines the string representation for player1.
-  * P2 - Located in validate.py, it defines the string representation for player2.
-  * logdir - Located in \_\_init\_\_.py, it provides the base folder where the generated logfiles will be kept.
-  * botsdir - Located in \_\_init\_\_.py, it provides the base folder where the executables will be searched for.
-  * err_codes - Not an actual constant, but a set of constants defined in the validate.py file, and define the return codes for the BM. eg P1_WIN, P2_WIN.
-  * ITER_MAX - Located in validate.py, this constant limits the number of iterations the match lasts till.
-  * MAX_BUFFER_LIMIT - Located in BMLimits.py, this constant specifies the maximum number of characters to be read by readline(), if the bot is dumping larger strings to stdout.
-  * TIME_LIMITS - Located in BMLimits.py, this dictionary maps the set time limits for a language, to the file extension of bots in that particular language.
-  * RESOURCE_LIMITS - Located in BMLimit.py, this dictionary provides the resource limits, which `prlimits` will use corresponding to a particular language.
+  * **P1** - Located in validate.py, it defines the string representation for player1.
+  * **P2** - Located in validate.py, it defines the string representation for player2.
+  * **logdir** - Located in \_\_init\_\_.py, it provides the base folder where the generated logfiles will be kept.
+  * **botsdir** - Located in \_\_init\_\_.py, it provides the base folder where the executables will be searched for.
+  * **err_codes** - Not an actual constant, but a set of constants defined in the validate.py file, and define the return codes for the BM. eg P1_WIN, P2_WIN.
+  * **ITER_MAX** - Located in validate.py, this constant limits the number of iterations the match lasts till.
+  * **MAX_BUFFER_LIMIT** - Located in BMLimits.py, this constant specifies the maximum number of characters to be read by readline(), if the bot is dumping larger strings to stdout.
+  * **TIME_LIMITS** - Located in BMLimits.py, this dictionary maps the set time limits for a language, to the file extension of bots in that particular language.
+  * **RESOURCE_LIMITS** - Located in BMLimit.py, this dictionary provides the resource limits, which `prlimits` will use corresponding to a particular language.
 
 <h2> Validation Convention </h2>
 The validation code must conform to certain conventions:
