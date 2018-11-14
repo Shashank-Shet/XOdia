@@ -1,6 +1,8 @@
 <h1> The Bot Management Folder </h1>
 
-<h2> BM.py </h2>
+<h2> Files </h2>
+
+<h3> BM.py </h3>
   The file BM.py represents the control logic for the Bot Management. Each time a match is requested, the sandbox plays 2 matches, once with the current player as player1 and once otherwise. The code is run with 4 command line arguments:
   
   * Bot1 extension
@@ -10,11 +12,24 @@
   
   An example of the third parameter is: 14v31, which results in a log file named `log14v31` as well as an error file named `error14v31`.
   
-<h2> process.py </h2>
+<h3> process.py </h3>
   Bot management makes extensive use of Popen objects, signal handling, and piping data to and from processes. This file defines a process class which abstracts away all lower level code, so as to ensure concise logic in the BM.py file.
   
-<h2> BMLimits.py </h2>
+<h3> BMLimits.py </h3>
   Stores user defined time limits, process limits and buffer limits for use in other files.
   
-<h2> validate.py </h2>
-  This file houses the code necessary to interface between BM.py and the validation.
+<h3> validate.py </h3>
+  This file houses the code necessary to interface between BM.py and the validation. It also contains necessary constants which define the logging conventions for the BM.
+
+<h2> Constants </h2>
+A list of constants influence the behaviour of the BM.
+
+  * P1 - Located in validate.py, it defines the string representation for player1.
+  * P2 - Located in validate.py, it defines the string representation for player2.
+  * logdir - Located in \_\_init\_\_.py, it provides the base folder where the generated logfiles will be kept.
+  * botsdir - Located in \_\_init\_\_.py, it provides the base folder where the executables will be searched for.
+  * err_codes - Not an actual constant, but a set of constants defined in the validate.py file, and define the return codes for the BM. eg P1_WIN, P2_WIN.
+  * ITER_MAX - Located in validate.py, this constant limits the number of iterations the match lasts till.
+  * MAX_BUFFER_LIMIT - Located in BMLimits.py, this constant specifies the maximum number of characters to be read by readline(), if the bot is dumping larger strings to stdout.
+  * TIME_LIMITS - Located in BMLimits.py, this dictionary maps the set time limits for a language, to the file extension of bots in that particular language.
+  * RESOURCE_LIMITS - Located in BMLimit.py, this dictionary provides the resource limits, which `prlimits` will use corresponding to a particular language.
