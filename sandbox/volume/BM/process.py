@@ -6,7 +6,8 @@ from subprocess import Popen, PIPE, call
 from select import poll, POLLIN
 import signal
 import psutil
-from BMLimits import time_limits, resource_limits, MAX_BUFFER_LENGTH
+from BMLimits import TIME_LIMITS, RESOURCE_LIMITS, MAX_BUFFER_LENGTH
+from __init__ import botsdir
 
 def handler(signum, frame):
     '''
@@ -33,10 +34,10 @@ class Process:
             Name of the executable which will be run. (player1/player2)
         '''
         # Without stdbuf, reading bot output blocks indefinitely.
-        arg_list = ["stdbuf", "-o0", "-e0", "-i0", "../bots/" + exec_name]
-        self.time_limit = time_limits[ext]
+        arg_list = ["stdbuf", "-o0", "-e0", "-i0", botsdir + exec_name]
+        self.time_limit = TIME_LIMITS[ext]
         self.popen_obj = Popen(arg_list, stdin=PIPE, stdout=PIPE)
-        self.set_limits(ext)
+#        self.set_limits(ext)
         self.poll_obj = poll()
         self.proc_obj = psutil.Process(pid=self.popen_obj.pid)
         self.poll_obj.register(self.popen_obj.stdout.fileno(), POLLIN)
@@ -52,7 +53,7 @@ class Process:
             Extension of the bot to find limits for.
         '''
         prlimit_args = ["prlimit", "-p", str(self.popen_obj.pid)]
-        prlimit_args.extend(resource_limits[ext])
+        prlimit_args.extend(RESOURCE_LIMITS[ext])
         call(prlimit_args)
 
     def suspend(self):
@@ -79,23 +80,25 @@ class Process:
         ip_string: str
             String input to be passed to the bot.
         '''
+        ip_string = ip_string.rstrip()
         if not isinstance(ip_string, bytes):
-            self.popen_obj.stdin.write(ip_string.encode()+'\n')
+            self.popen_obj.stdin.write(ip_string.encode() + b'\n')
         else:
-            self.popen_obj.stdin.write(ip_string + '\n')
+            self.popen_obj.stdin.write(ip_string + b'\n')
         self.popen_obj.stdin.flush()
 
     def read_output(self):
         '''
         Read either a line or MAX_BUFFER_LENGTH characters from the processes'
-        stdout and returns it. In case of a timout, it returns None.
+        stdout and returns it. The returned string will have no trailing
+        newline. In case of a timout, it returns None.
         '''
         event_list = self.poll_obj.poll(self.time_limit)
         if event_list and event_list[0][1] is POLLIN:
             signal.alarm(1)
             op_string = self.popen_obj.stdout.readline(MAX_BUFFER_LENGTH)
             signal.alarm(0)
-            return op_string.rstrip('\n')
+            return op_string.rstrip()
         return None
 
     def is_alive(self):
