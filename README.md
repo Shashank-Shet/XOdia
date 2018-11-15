@@ -8,3 +8,4 @@ This repository is intended to maintain the backend for the project, instead of 
 1. 4 Spaces for indentation, no tabs.
 2. Unix line endings only.
 3. Lines must not exceed 80 characters in length.
+4. Use pylint for linting.
