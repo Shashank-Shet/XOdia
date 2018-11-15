@@ -37,7 +37,7 @@ class Process:
         arg_list = ["stdbuf", "-o0", "-e0", "-i0", botsdir + exec_name]
         self.time_limit = TIME_LIMITS[ext]
         self.popen_obj = Popen(arg_list, stdin=PIPE, stdout=PIPE)
-#        self.set_limits(ext)
+        self.set_limits(ext)
         self.poll_obj = poll()
         self.proc_obj = psutil.Process(pid=self.popen_obj.pid)
         self.poll_obj.register(self.popen_obj.stdout.fileno(), POLLIN)
